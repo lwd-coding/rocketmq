@@ -16,12 +16,6 @@
  */
 package org.apache.rocketmq.broker;
 
-import java.io.BufferedInputStream;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.Properties;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.DefaultParser;
 import org.apache.commons.cli.Option;
@@ -41,12 +35,24 @@ import org.apache.rocketmq.srvutil.ServerUtil;
 import org.apache.rocketmq.store.config.BrokerRole;
 import org.apache.rocketmq.store.config.MessageStoreConfig;
 
+import java.io.BufferedInputStream;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Properties;
+import java.util.concurrent.atomic.AtomicInteger;
+
 public class BrokerStartup {
 
     public static Logger log;
     public static final SystemConfigFileHelper CONFIG_FILE_HELPER = new SystemConfigFileHelper();
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
+        System.setProperty(MixAll.ROCKETMQ_HOME_PROPERTY, "D:\\data\\rocketmq");
+        System.setProperty(MixAll.ROCKETMQ_HOME_ENV, "D:\\data\\rocketmq");
+        args= new String[]{"-cD:\\data\\rocketmq\\conf\\broker.conf"};
+       // System.setProperty(MixAll.NAMESRV_ADDR_PROPERTY, "127.0.0.1:9876");
         start(createBrokerController(args));
     }
 
